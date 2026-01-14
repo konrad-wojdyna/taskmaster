@@ -1,0 +1,5 @@
+spring.application.name=TaskMaster
+
+
+jwt.secret=your-very-secure-secret-key
+jwt.expiration=86400000
