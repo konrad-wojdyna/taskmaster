@@ -10,6 +10,7 @@ import com.taskmaster.api.exception.InvalidCredentialsException;
 import com.taskmaster.api.exception.UsernameAlreadyExistsException;
 import com.taskmaster.api.mapper.UserMapper;
 import com.taskmaster.api.repository.UserRepository;
+import com.taskmaster.api.security.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
     @Transactional
     public AuthResponse register(UserRegisterRequest request) {
@@ -46,9 +48,11 @@ public class AuthService {
 
         UserResponse response = UserMapper.toResponse(savedUsed);
 
+        String accessToken = jwtUtils.generateToken(savedUsed.getId(), savedUsed.getEmail(), savedUsed.getRole().name());
+
         log.info("User registered successfully: {}", savedUsed.getEmail());
 
-        return new AuthResponse("", "Bearer", response);
+        return new AuthResponse(accessToken, "Bearer", response);
     }
 
     public AuthResponse login(UserLoginRequest request) {
@@ -68,8 +72,8 @@ public class AuthService {
 
         log.info("User logged in successfully: {}", user.getEmail());
 
-        //TODO: Implement: Generate JWT token
+        String accessToken = jwtUtils.generateToken(user.getId(), user.getEmail(), user.getRole().name());
 
-        return new AuthResponse("", "Bearer", response);
+        return new AuthResponse(accessToken, "Bearer", response);
     }
 }
