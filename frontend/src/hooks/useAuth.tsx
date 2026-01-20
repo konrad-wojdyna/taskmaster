@@ -1,5 +1,6 @@
-import type { LoginCredentails, RegisterCredentials } from "@/types/auth";
 import { useState } from "react";
+import type { LoginCredentails, RegisterCredentials } from "@/types/auth";
+import authService from "@/services/authService";
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +11,8 @@ export const useAuth = () => {
     setError(null);
 
     try {
-      console.log("Register Data", data);
+      const response = await authService.register(data);
+      console.log("Register Data 2:", response);
     } catch (err) {
       setError("Registration failed. Please try again.");
       console.error("Register error:", err);
@@ -24,7 +26,9 @@ export const useAuth = () => {
     setError(null);
 
     try {
-      console.log("Login Data", data);
+      const response = await authService.login(data);
+
+      console.log("Login Data 2:", response);
     } catch (err) {
       setError("Login credentails incorrect. Please try again.");
       console.error("Login error:", err);
