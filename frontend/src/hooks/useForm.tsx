@@ -19,5 +19,9 @@ export const useForm = <T extends object>(
     onSubmit(values);
   };
 
-  return { values, handleChange, handleSubmit };
+  const reset = () => {
+    setValues(initialValues);
+  };
+
+  return { values, handleChange, handleSubmit, reset };
 };

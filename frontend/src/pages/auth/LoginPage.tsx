@@ -77,6 +77,7 @@ const LoginPage = () => {
           <Button
             type="submit"
             className="mt-5 p-5 bg-blue-700 text-white text-lg hover:bg-blue-800 disabled:bg-blue-400 disabled:cursor-not-allowed"
+            disabled={isLoading}
           >
             {isLoading ? "Signing in..." : "Sign In"}
           </Button>

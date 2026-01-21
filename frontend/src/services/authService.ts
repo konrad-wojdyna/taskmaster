@@ -17,7 +17,7 @@ class AuthService {
     try {
       const response = await api.post<AuthResponse>("/auth/login", credentials);
 
-      console.log("Login response 1: ", response);
+      console.log("[AuthService] Login response: ", response);
       return response.data;
     } catch (error) {
       console.error("Login failed:", error);
@@ -38,7 +38,7 @@ class AuthService {
         credentials,
       );
 
-      console.log("Register response 1: ", response);
+      console.log("[AuthService] Register response: ", response);
 
       return response.data;
     } catch (error) {

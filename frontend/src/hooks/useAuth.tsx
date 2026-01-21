@@ -6,31 +6,38 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const register = async (data: RegisterCredentials) => {
+  const register = async (data: RegisterCredentials): Promise<void> => {
     setIsLoading(true);
     setError(null);
 
     try {
       const response = await authService.register(data);
-      console.log("Register Data 2:", response);
+      console.log("Register response:", response);
     } catch (err) {
-      setError("Registration failed. Please try again.");
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Registration failed. Please try again.";
+      setError(errorMessage);
       console.error("Register error:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const login = async (data: LoginCredentails) => {
+  const login = async (data: LoginCredentails): Promise<void> => {
     setIsLoading(true);
     setError(null);
 
     try {
       const response = await authService.login(data);
-
-      console.log("Login Data 2:", response);
+      console.log("Login response:", response);
     } catch (err) {
-      setError("Login credentails incorrect. Please try again.");
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Invalid credentials. Please try again.";
+      setError(errorMessage);
       console.error("Login error:", err);
     } finally {
       setIsLoading(false);
