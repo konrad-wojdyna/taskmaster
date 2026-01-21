@@ -6,20 +6,34 @@ import { InputRow } from "@/components/common";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "@/hooks/useForm";
 import type { RegisterCredentials } from "@/types/auth";
+import { useState } from "react";
+import { validatePassword } from "@/validation/passwordRules";
+import PasswordRequirements from "@/components/auth/PasswordRequirements";
 
 const RegisterPage = () => {
   const { register, isLoading, error } = useAuth();
+  const [showPasswordRequirements, setShowPasswordRequirements] =
+    useState(false);
 
-  const { values, handleChange, handleSubmit } = useForm<RegisterCredentials>(
-    {
-      username: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    },
-    (formData) => register(formData),
-  );
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useForm<RegisterCredentials>(
+      {
+        username: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      },
+      {
+        password: (pasword) => {
+          if (!pasword) return "Password is required";
+          if (!validatePassword(pasword))
+            return "Password does not meet requirements";
+          return null;
+        },
+      },
+      (formData) => register(formData),
+    );
 
   return (
     <section className="flex flex-col items-center mt-5">
@@ -76,8 +90,23 @@ const RegisterPage = () => {
             labelText="Password"
             placeholderText="********"
             value={values.password}
+            onFocus={() => setShowPasswordRequirements(true)}
             onChange={handleChange}
+            onBlur={(e) => {
+              handleBlur(e);
+
+              if (!validatePassword(values.password)) {
+                setShowPasswordRequirements(true);
+              } else {
+                setShowPasswordRequirements(false);
+              }
+            }}
+            error={touched.password ? errors.password : undefined}
             required
+          />
+          <PasswordRequirements
+            password={values.password}
+            show={showPasswordRequirements}
           />
           <Button
             type="submit"
