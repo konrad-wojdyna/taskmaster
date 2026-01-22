@@ -16,8 +16,6 @@ class AuthService {
   async login(credentials: LoginCredentails): Promise<AuthResponse> {
     try {
       const response = await api.post<AuthResponse>("/auth/login", credentials);
-
-      console.log("[AuthService] Login response: ", response);
       return response.data;
     } catch (error) {
       console.error("Login failed:", error);
@@ -37,9 +35,6 @@ class AuthService {
         "/auth/register",
         credentials,
       );
-
-      console.log("[AuthService] Register response: ", response);
-
       return response.data;
     } catch (error) {
       console.error("Register failed:", error);
