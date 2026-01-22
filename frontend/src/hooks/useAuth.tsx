@@ -1,10 +1,15 @@
 import { useState } from "react";
 import type { LoginCredentails, RegisterCredentials } from "@/types/auth";
 import authService from "@/services/authService";
+import { useNavigate } from "react-router";
+import { useAuthStore } from "@/store/authStore";
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const { setAuth, logout: clearAuth } = useAuthStore();
 
   const register = async (data: RegisterCredentials): Promise<void> => {
     setIsLoading(true);
@@ -12,14 +17,19 @@ export const useAuth = () => {
 
     try {
       const response = await authService.register(data);
-      console.log("Register response:", response);
+
+      const { accessToken, user } = response;
+      if (accessToken && user) {
+        setAuth(accessToken, user);
+      }
+
+      navigate("/");
     } catch (err) {
       const errorMessage =
         err instanceof Error
           ? err.message
           : "Registration failed. Please try again.";
       setError(errorMessage);
-      console.error("Register error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -31,18 +41,28 @@ export const useAuth = () => {
 
     try {
       const response = await authService.login(data);
-      console.log("Login response:", response);
+
+      const { accessToken, user } = response;
+      if (accessToken && user) {
+        setAuth(accessToken, user);
+      }
+
+      navigate("/");
     } catch (err) {
       const errorMessage =
         err instanceof Error
           ? err.message
           : "Invalid credentials. Please try again.";
       setError(errorMessage);
-      console.error("Login error:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { register, login, isLoading, error };
+  const logout = () => {
+    clearAuth();
+    navigate("/login");
+  };
+
+  return { register, login, logout, isLoading, error };
 };
