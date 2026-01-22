@@ -25,9 +25,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody UserRegisterRequest request){
-        log.info("Received registration request for username: {}, email: {}", request.username(), request.email());
+        log.info("Registration request received");
         AuthResponse response = authService.register(request);
-        log.info("Registration successful for username: {}, email: {}", request.username(), request.email());
+        log.info("Registration successful");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

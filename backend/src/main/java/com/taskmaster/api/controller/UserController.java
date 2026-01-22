@@ -1,6 +1,7 @@
 package com.taskmaster.api.controller;
 
 
+import com.taskmaster.api.dto.request.ChangeEmailRequest;
 import com.taskmaster.api.dto.request.UpdateProfileRequest;
 import com.taskmaster.api.dto.response.UserResponse;
 import com.taskmaster.api.security.userdetails.UserPrincipal;
@@ -35,13 +36,18 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+    @PreAuthorize("hasRole('ADMIN') or #id == principal.id")
+    public ResponseEntity<UserResponse> getUserById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserPrincipal principal
+            ) {
         log.info("Received getUserById request for id: {}", id);
         UserResponse response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         log.info("Received getAllUsers request");
         List<UserResponse> users = userService.listUsers();
@@ -61,11 +67,11 @@ public class UserController {
     @PutMapping("/change-email")
     public ResponseEntity<UserResponse> changeEmail(
             @AuthenticationPrincipal UserPrincipal principal,
-            @RequestParam String newEmail) {
+            @Valid @RequestBody ChangeEmailRequest request) {
 
         log.info("Received changeEmail request for id: {}", principal.id());
 
-        UserResponse response = userService.changeEmail(principal.id(), newEmail);
+        UserResponse response = userService.changeEmail(principal.id(), request.newEmail());
         return ResponseEntity.ok(response);
     }
 
