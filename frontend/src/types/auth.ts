@@ -10,8 +10,11 @@ export interface User {
 }
 
 export interface AuthResponse {
-  user: User;
-  token: string;
+  user: User | null;
+  accessToken: string | null;
+  isAuthenticated: boolean;
+  setAuth: (token: string, user: User) => void;
+  logout: () => void;
 }
 
 export interface RegisterCredentials {
@@ -22,7 +25,7 @@ export interface RegisterCredentials {
   password: string;
 }
 
-export interface LoginCredentails {
+export interface LoginCredentials {
   usernameOrEmail: string;
   password: string;
 }
