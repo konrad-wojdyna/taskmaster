@@ -73,6 +73,23 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
+    @ExceptionHandler(UnauthorizedTaskAccessException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedTaskAccess(
+            UnauthorizedTaskAccessException ex,
+            HttpServletRequest request
+    ){
+        log.warn("Unauthorized task access on path: {} - {}", request.getRequestURI(), ex.getMessage());
+
+        ErrorResponse response = new ErrorResponse(
+                HttpStatus.FORBIDDEN.value(),
+                HttpStatus.FORBIDDEN.getReasonPhrase(),
+                "You are not authorized to access this task",
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
+
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAuthorizationDenied(
             AuthorizationDeniedException ex,
@@ -100,6 +117,21 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND.value(),
                 HttpStatus.NOT_FOUND.getReasonPhrase(),
                 "User not found",
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTaskNotFoundException(TaskNotFoundException ex,
+                                                                     HttpServletRequest request){
+        log.warn("Task not found on path: {} - {}", request.getRequestURI(), ex.getMessage());
+
+        ErrorResponse response = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "Task not found",
                 request.getRequestURI()
         );
 
