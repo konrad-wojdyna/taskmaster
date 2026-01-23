@@ -1,6 +1,6 @@
 import type {
   AuthResponse,
-  LoginCredentails,
+  LoginCredentials,
   RegisterCredentials,
 } from "@/types/auth";
 import api from "./api";
@@ -13,7 +13,7 @@ class AuthService {
    * @param credentials
    * @returns
    */
-  async login(credentials: LoginCredentails): Promise<AuthResponse> {
+  async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
       const response = await api.post<AuthResponse>("/auth/login", credentials);
       return response.data;

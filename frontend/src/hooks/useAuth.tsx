@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { LoginCredentails, RegisterCredentials } from "@/types/auth";
+import type { LoginCredentials, RegisterCredentials } from "@/types/auth";
 import authService from "@/services/authService";
 import { useNavigate } from "react-router";
 import { useAuthStore } from "@/store/authStore";
@@ -35,7 +35,7 @@ export const useAuth = () => {
     }
   };
 
-  const login = async (data: LoginCredentails): Promise<void> => {
+  const login = async (data: LoginCredentials): Promise<void> => {
     setIsLoading(true);
     setError(null);
 
