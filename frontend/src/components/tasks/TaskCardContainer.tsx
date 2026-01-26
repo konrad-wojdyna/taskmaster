@@ -1,5 +1,7 @@
+import { Plus } from "lucide-react";
 import type { Task } from "@/types/task";
 import TaskCard from "./TaskCard";
+import { Button } from "../ui/button";
 
 interface TaskCardContainerProps {
   tasks: Task[];
@@ -8,8 +10,28 @@ interface TaskCardContainerProps {
 const TaskCardContainer = ({ tasks }: TaskCardContainerProps) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Tasks</h2>
-      <ul className="space-y-4">
+      <div className="mb-6 md:flex justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900">My Tasks</h2>
+          <p className="text-gray-600 mt-1">Manage and organize your tasks</p>
+        </div>
+        <Button
+          className="mt-4 px-4 py-2 bg-blue-700 text-white
+           hover:bg-blue-800 transition-colors
+             cursor-pointer
+             "
+          onClick={() => console.log("Open Modal")}
+        >
+          <span>
+            <Plus size={20} />
+          </span>{" "}
+          New Task
+        </Button>
+      </div>
+      <ul
+        className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))]
+      gap-4"
+      >
         {tasks?.map((task) => {
           return <TaskCard key={task.id} {...task} />;
         })}

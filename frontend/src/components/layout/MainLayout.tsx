@@ -9,22 +9,24 @@ const MainLayout = () => {
 
   return (
     <section className="">
-      <nav className="flex items-center justify-between px-4 py-2">
-        <Logo />
-        <NavLinks show={false} />
-        <div className="flex items-center gap-5">
-          <DropdownMenuAvatar />
-          <Menu
-            size={24}
-            className="text-[#4e38f5]"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        </div>
-      </nav>
-      <main>
-        <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
-        <Outlet />
-      </main>
+      <div className="p-4">
+        <nav className="flex items-center justify-between">
+          <Logo />
+          <NavLinks show={false} />
+          <div className="flex items-center gap-5">
+            <DropdownMenuAvatar />
+            <Menu
+              size={24}
+              className="text-[#4e38f5]"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          </div>
+        </nav>
+        <main className="py-4">
+          <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
+          <Outlet />
+        </main>
+      </div>
     </section>
   );
 };

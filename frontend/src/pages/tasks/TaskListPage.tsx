@@ -1,4 +1,4 @@
-import { Filters, TaskCardContainer, TaskCard } from "@/components";
+import { Filters, TaskCardContainer } from "@/components";
 import { useTasks } from "@/hooks/useTasks";
 
 const TaskListPage = () => {

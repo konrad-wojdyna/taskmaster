@@ -38,6 +38,10 @@ const App = () => {
             path="/task-detail-page-mockup"
             element={<TaskDetailPageMockup />}
           />
+          <Route
+            path="/task-form-modal-mockup"
+            element={<TaskFormModalMockup />}
+          />
 
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
@@ -46,10 +50,6 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/tasks" element={<TaskListPage />} />
               <Route path="/tasks/:taskId" element={<TaskDetailPage />} />
-              <Route
-                path="/task-form-modal"
-                element={<TaskFormModalMockup />}
-              />
             </Route>
           </Route>
         </Routes>
