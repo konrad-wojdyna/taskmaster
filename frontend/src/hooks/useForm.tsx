@@ -8,6 +8,8 @@ type ValidationErrors<T> = {
   [K in keyof T]?: string;
 };
 
+type FormElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
 export const useForm = <T extends object>(
   initialValues: T,
   validationRules: ValidationRules<T>,
@@ -39,7 +41,7 @@ export const useForm = <T extends object>(
     return isValid;
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<FormElement>) => {
     const { name, value } = e.target;
     const fieldName = name as keyof T;
 
@@ -57,7 +59,7 @@ export const useForm = <T extends object>(
     }
   };
 
-  const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleBlur = (e: ChangeEvent<FormElement>) => {
     const { name } = e.target;
     const fieldName = name as keyof T;
 
@@ -91,6 +93,8 @@ export const useForm = <T extends object>(
 
   const reset = () => {
     setValues(initialValues);
+    setErrors({});
+    setTouched({});
   };
 
   return {
