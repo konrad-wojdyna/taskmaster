@@ -24,5 +24,6 @@ export const useTasks = () => {
     isError: taskQuery.isError,
     error: taskQuery.error,
     createTask: createTaskMutation.mutate,
+    isCreating: createTaskMutation.isPending,
   };
 };

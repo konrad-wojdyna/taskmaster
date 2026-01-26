@@ -1,13 +1,16 @@
 import { Plus } from "lucide-react";
 import type { Task } from "@/types/task";
-import TaskCard from "./TaskCard";
 import { Button } from "../ui/button";
+import { CreateTaskForm, TaskCard } from "@/components";
+import { useState } from "react";
 
 interface TaskCardContainerProps {
   tasks: Task[];
 }
 
 const TaskCardContainer = ({ tasks }: TaskCardContainerProps) => {
+  const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
+
   return (
     <div>
       <div className="mb-6 md:flex justify-between">
@@ -20,7 +23,7 @@ const TaskCardContainer = ({ tasks }: TaskCardContainerProps) => {
            hover:bg-blue-800 transition-colors
              cursor-pointer
              "
-          onClick={() => console.log("Open Modal")}
+          onClick={() => setIsCreateTaskModalOpen(true)}
         >
           <span>
             <Plus size={20} />
@@ -28,6 +31,10 @@ const TaskCardContainer = ({ tasks }: TaskCardContainerProps) => {
           New Task
         </Button>
       </div>
+      <CreateTaskForm
+        isOpen={isCreateTaskModalOpen}
+        setIsOpen={() => setIsCreateTaskModalOpen(!isCreateTaskModalOpen)}
+      />
       <ul
         className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))]
       gap-4"
