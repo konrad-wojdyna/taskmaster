@@ -1,14 +1,16 @@
-import AuthTitle from "@/components/auth/AuthTitle";
-import AuthTab from "@/components/auth/AuthTab";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Link } from "react-router";
-import { InputRow } from "@/components/common";
+import { Button } from "@/components/ui/button";
+import {
+  InputRow,
+  AuthTitle,
+  AuthTab,
+  PasswordRequirements,
+} from "@/components/index";
+import { validatePassword } from "@/validation/passwordRules";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "@/hooks/useForm";
 import type { RegisterCredentials } from "@/types/auth";
-import { useState } from "react";
-import { validatePassword } from "@/validation/passwordRules";
-import PasswordRequirements from "@/components/auth/PasswordRequirements";
 
 const RegisterPage = () => {
   const { register, isLoading, error } = useAuth();
