@@ -7,3 +7,4 @@ export { default as HomePage } from "./HomePage";
 export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as TaskListPage } from "./tasks/TaskListPage";
 export { default as TaskDetailPage } from "./tasks/TaskDetailPage";
+export { default as EditTaskPage } from "./tasks/EditTaskPage";
