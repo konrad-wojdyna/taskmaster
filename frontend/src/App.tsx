@@ -6,6 +6,7 @@ import {
   RegisterPage,
   TaskListPage,
   TaskDetailPage,
+  EditTaskPage,
 } from "./pages";
 
 import Dashboard from "./pages/mockups/DashboardMockup";
@@ -49,6 +50,7 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/tasks" element={<TaskListPage />} />
               <Route path="/tasks/:taskId" element={<TaskDetailPage />} />
+              <Route path="/tasks/:taskId/edit" element={<EditTaskPage />} />
             </Route>
           </Route>
         </Routes>
