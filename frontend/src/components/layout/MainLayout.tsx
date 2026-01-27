@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import { Logo, DropdownMenuAvatar, Drawer } from "../index";
 import { useState } from "react";
 import NavLinks from "./NavLinks";
+import { Toaster } from "../ui/sonner";
 
 const MainLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,7 @@ const MainLayout = () => {
           <Outlet />
         </main>
       </div>
+      <Toaster position="top-center" />
     </section>
   );
 };
