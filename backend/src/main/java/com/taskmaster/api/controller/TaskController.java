@@ -1,6 +1,5 @@
 package com.taskmaster.api.controller;
 
-
 import com.taskmaster.api.dto.request.CreateTaskRequest;
 import com.taskmaster.api.dto.request.UpdateTaskRequest;
 import com.taskmaster.api.dto.response.TaskResponse;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +44,7 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> getTaskById(
-            @PathVariable Long taskId,
+            @PathVariable(name = "id") Long taskId,
             @AuthenticationPrincipal UserPrincipal userPrincipal){
         log.info("Fetching task {} for user: {}", taskId, userPrincipal.id());
         TaskResponse response = taskService.getTaskById(taskId, userPrincipal.id());
@@ -55,7 +53,7 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TaskResponse> updateTask(
-            @PathVariable Long taskId,
+            @PathVariable(name = "id") Long taskId,
             @Valid @RequestBody UpdateTaskRequest request,
             @AuthenticationPrincipal UserPrincipal userPrincipal){
 
@@ -66,7 +64,7 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(
-            @PathVariable Long taskId,
+            @PathVariable(name = "id") Long taskId,
             @AuthenticationPrincipal UserPrincipal userPrincipal){
 
         log.info("Deleting task {} for user: {}", taskId, userPrincipal.id());
