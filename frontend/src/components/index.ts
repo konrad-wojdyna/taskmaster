@@ -22,3 +22,4 @@ export { default as Filters } from "./tasks/Filters";
 export { default as TaskCardContainer } from "./tasks/TaskCardContainer";
 export { default as TaskCard } from "./tasks/TaskCard";
 export { default as CreateTaskForm } from "./tasks/CreateTaskForm";
+export { default as EditTaskForm } from "./tasks/EditTaskForm";
