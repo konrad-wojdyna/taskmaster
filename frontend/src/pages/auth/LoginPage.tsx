@@ -1,20 +1,18 @@
-import AuthTitle from "@/components/auth/AuthTitle";
-import AuthTab from "@/components/auth/AuthTab";
-import { Button } from "@/components/ui/button";
-import { Square, CheckSquare } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import { InputRow } from "@/components/common";
+import { Square, CheckSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { InputRow, AuthTitle, AuthTab } from "@/components/index";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "@/hooks/useForm";
-import type { LoginCredentails } from "@/types/auth";
+import type { LoginCredentials } from "@/types/auth";
 
 const LoginPage = () => {
   const [isRememberMeSelected, setIsRememberMeSelected] = useState(false);
 
   const { isLoading, error, login } = useAuth();
 
-  const { values, handleChange, handleSubmit } = useForm<LoginCredentails>(
+  const { values, handleChange, handleSubmit } = useForm<LoginCredentials>(
     {
       usernameOrEmail: "",
       password: "",

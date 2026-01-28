@@ -1,52 +1,58 @@
+import type React from "react";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 import { AlertCircle } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-interface InputRowProps {
+interface TextareaRowProps {
   labelText: string;
-  inputType: string;
   placeholderText?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   name: string;
   required?: boolean;
   error?: string;
+  rows?: number;
+  maxLength?: number;
 }
 
-const InputRow = ({
+const TextareaRow = ({
   labelText,
-  inputType = "text",
   placeholderText,
   value,
   onChange,
   onBlur,
-  onFocus,
   name,
   required = false,
   error,
-}: InputRowProps) => {
+  rows = 4,
+  maxLength,
+}: TextareaRowProps) => {
   return (
-    <div className="flex flex-col p-2">
-      <Label className="mb-1 text-lg" htmlFor={name}>
+    <div className="flex flex-col gap-2">
+      <Label htmlFor={name}>
         {labelText}
         {required && <span className="text-red-500 ml-1">*</span>}
       </Label>
-      <Input
+      <Textarea
         id={name}
         name={name}
-        type={inputType}
         placeholder={placeholderText}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        onFocus={onFocus}
         required={required}
+        rows={rows}
+        maxLength={maxLength}
         className={error ? "border-red-500 focus-visible:ring-red-500" : ""}
       />
+      {maxLength && (
+        <small className="text-gray-500 text-right">
+          {value.length}/{maxLength}
+        </small>
+      )}
       {error && (
-        <div className="flex items-center gap-1 mt-1 text-sm text-red-600">
+        <div className="flex items-center gap-1 text-sm text-red-600">
           <AlertCircle size={14} />
           <span>{error}</span>
         </div>
@@ -54,4 +60,4 @@ const InputRow = ({
     </div>
   );
 };
-export default InputRow;
+export default TextareaRow;
