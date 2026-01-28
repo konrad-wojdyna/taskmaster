@@ -26,7 +26,7 @@ public class CategoryMapper {
                 .build();
     }
 
-    public static void updateEntity(Category category, UpdateCategoryRequest request){
+    public static Category updateEntity(Category category, UpdateCategoryRequest request){
 
         if(request.name() != null && !request.name().isBlank()){
             category.setName(request.name());
@@ -39,6 +39,8 @@ public class CategoryMapper {
         if(request.icon() != null){
             category.setIcon(request.icon());
         }
+
+        return category;
 
     }
 }
