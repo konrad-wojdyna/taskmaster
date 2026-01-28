@@ -15,7 +15,7 @@ export { default as DropdownMenuAvatar } from "./layout/DropdownMenuAvatar";
 export { default as MainLayout } from "./layout/MainLayout";
 export { default as Navbar } from "./layout/Navbar";
 export { default as NavLinks } from "./layout/NavLinks";
-export { default as AlertDialog } from "./layout/AlertDialogCustom";
+export { default as AlertDialog } from "./layout/AlertDialog";
 
 //tasks
 export { default as Filters } from "./tasks/Filters";
