@@ -94,7 +94,7 @@ const TaskDetailPage = () => {
             <h1 className="text-2xl font-bold mb-2">{task.title}</h1>
             <div className="flex gap-4 text-sm text-gray-600">
               <p>Created at: {createdAtDate}</p>
-              <p>-</p>
+              <p>•</p>
               <p>Updated at: {updatedAtDate}</p>
             </div>
           </div>
@@ -129,13 +129,18 @@ const TaskDetailPage = () => {
             <Trash2 size={16} />
             {isDeleting ? "Deleting..." : "Delete"}
           </Button>
-          <AlertDialog
-            showDialog={showDeleteDialog}
-            setShowDialog={setShowDeleteDialog}
-            handleClick={handleDelete}
-          />
         </div>
       </header>
+
+      <AlertDialog
+        showDialog={showDeleteDialog}
+        setShowDialog={setShowDeleteDialog}
+        handleClick={handleDelete}
+        title="Delete Task?"
+        description="This action cannot be undone. This will permanently delete the task."
+        confirmText="Delete"
+        isLoading={isDeleting}
+      />
 
       <div className="border-b">
         <div className="flex items-center gap-2">
@@ -159,7 +164,7 @@ const TaskDetailPage = () => {
 
       <main className="mt-6">
         {activeTab === "overview" && (
-          <div className="bg-white border shadow-sm p-6 rounlg">
+          <div className="bg-white border shadow-sm p-6 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Description</h2>
             <p className="text-gray-700 whitespace-pre-wrap">
               {task.description || "No description provided."}

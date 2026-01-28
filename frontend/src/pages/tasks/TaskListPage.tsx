@@ -12,10 +12,6 @@ const TaskListPage = () => {
     return <div>Error: {error?.message}</div>;
   }
 
-  if (tasks.length === 0) {
-    return <div>No tasks yet. Create your first task!</div>;
-  }
-
   return (
     <section>
       <Filters />

@@ -35,14 +35,18 @@ const TaskCardContainer = ({ tasks }: TaskCardContainerProps) => {
         isOpen={isCreateTaskModalOpen}
         setIsOpen={() => setIsCreateTaskModalOpen(!isCreateTaskModalOpen)}
       />
-      <ul
-        className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))]
+      {tasks.length === 0 ? (
+        <div>No tasks yet. Create your first task!</div>
+      ) : (
+        <ul
+          className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))]
       gap-4"
-      >
-        {tasks?.map((task) => {
-          return <TaskCard key={task.id} {...task} />;
-        })}
-      </ul>
+        >
+          {tasks?.map((task) => {
+            return <TaskCard key={task.id} {...task} />;
+          })}
+        </ul>
+      )}
     </div>
   );
 };
